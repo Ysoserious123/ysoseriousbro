@@ -21,15 +21,28 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 
-
+/*
+ * This is the LoadData class. Its job is to fill a Data class with data saved in a .csv file
+ */
 public class LoadData {
 	
+	// This is the name of the loaded file
 	private String loadName;
-	private static String user = System.getProperty("user.name");
-	private static String dir = "C:\\Users\\" + user + "\\Desktop\\Infection Spreading Saves\\";
+	
+	// This is the username of the active user
+	private String user = System.getProperty("user.name");
+	// This is the directory of the save folder created specifically for this program
+	private String dir = "C:\\Users\\" + user + "\\Desktop\\Infection Spreading Saves\\";
+	// This is the complete directory for the .csv file
 	private String CSVdir;
+	// this is the Scanner class that will read the file
 	private Scanner sc;
 	
+	/*
+	 * This is the constructor for LoadData. It initializes the global variable that have not been initialized. This creates a Scanner class to read the load file. If it can't
+	 * an error message appears.
+	 * @param filename = name of file being loaded
+	 */
 	public LoadData(String fileName) {
 		loadName = fileName;
 		CSVdir = dir + fileName + ".csv";
@@ -43,11 +56,19 @@ public class LoadData {
 		}
 	}
 	
+	
+	/*
+	 * This returns a Data class with all of its necessary storage containers filled from the save file.
+	 * @return Data filled from loaded file
+	 */
 	public Data load() {
 		ArrayList<Integer> infected = new ArrayList<Integer>();
 		ArrayList<Integer> healthy = new ArrayList<Integer>();
 		ArrayList<Integer> recovered = new ArrayList<Integer>();
 		sc.nextLine(); // Every saved file has a header which we do not want so we skip it
+		
+		// This block of code creates a string array from each line of the load file and puts each datum in an array index and then into the
+		// appropriate storage container.
 		while(sc.hasNextLine()) {
 			String[] info = sc.nextLine().split(",");
 			healthy.add(Integer.parseInt(info[1]));
